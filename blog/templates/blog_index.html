@@ -2,28 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Blogs</title>
 </head>
 <body>
 {% extends "base.html" %}
-{% block page_content %}
-<div class="col-md-8 offset-md-2">
-    <h1>My Blogs</h1>
-    <hr>
-    {% for post in posts %}
-    <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
-    <small>
-        {{ post.created_on.date }} |&nbsp;
-        Categories:&nbsp;
-        {% for category in post.categories.all %}
-        <a href="{% url 'blog_category' category.name %}">
-            {{ category.name }}
-        </a>&nbsp;
-        {% endfor %}
-    </small>
-    <p>{{ post.body | slice:":400" }}...</p>
-    {% endfor %}
-</div>
+{% block page_content %}<br><br>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="col-md-8 offset-md-2">
+                <h1>My Blogs</h1>
+                <hr>
+                {% for post in post_list %}
+                    <h2><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h2>
+                    <small>
+                        {{ post.created_on.date }} |
+                        Categories:
+                        {% for category in post.categories.all %}
+                            <a href="{% url 'blog_category' category.name %}">
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
+                    </small>
+                    <p>{{ post.body | slice:":400" }}...</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {#    <a href="{% url 'search_results' %}">Search Blog</a><br><br>#}
 {% endblock %}
 </body>
 </html>
