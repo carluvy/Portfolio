@@ -8,6 +8,7 @@ __pycache__/
 
 # C extensions
 *.so
+.elasticbeanstalk/
 sent_emails/
 # Distribution / packaging
 .Python
