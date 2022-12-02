@@ -36,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", default='12345')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -112,17 +112,17 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.getenv('RDS_PORT'),
         }
     }
-# else:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql_psycopg2",
-#             "NAME": os.getenv('DATABASE'),
-#             "USER": os.getenv("USER"),
-#             "PASSWORD": os.getenv("PASSWORD"),
-#             "HOST": os.getenv('HOST'),
-#             "PORT": os.getenv('PORT'),
-#         }
-#     }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": os.getenv('DATABASE'),
+            "USER": os.getenv("USER"),
+            "PASSWORD": os.getenv("PASSWORD"),
+            "HOST": os.getenv('HOST'),
+            "PORT": os.getenv('PORT'),
+        }
+    }
 
     # Password validation
     # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
