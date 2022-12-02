@@ -39,7 +39,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['web-portfolio-dev.us-west-2.elasticbeanstalk.com']
 
 # Application definition
 
