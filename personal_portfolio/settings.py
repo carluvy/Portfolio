@@ -41,7 +41,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "l409w^i!s7$+9t0bc94%%p70fxb@bq
 DEBUG = os.environ.get('DJANGO_DEBUG', '1').lower() in ['true', 't', '1']
 
 
-ALLOWED_HOSTS = ['Techportfolio-env.eba-seppabie.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'Techportfolio-env.eba-seppabie.us-west-2.elasticbeanstalk.com']
 
 # Application definition
 
@@ -162,7 +162,8 @@ else:
     # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
     STATIC_URL = "/static/"
-    STATIC_ROOT = os.path.join(BASE_DIR, "..", "projects", "static")
+    # STATIC_ROOT = os.path.join(BASE_DIR, "..", "projects", "static")
+    STATIC_ROOT = 'static'
     STATICFILES_DIRS = [
         BASE_DIR / "projects/static",
     ]
