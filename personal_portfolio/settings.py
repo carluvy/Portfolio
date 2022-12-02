@@ -38,7 +38,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "l409w^i!s7$+9t0bc94%%p70fxb@bq7w_(38*nk4u1t^s%^o^")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '1').lower() in ['true', 't', '1']
+DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
 
 ALLOWED_HOSTS = ['127.0.0.1', 'Techportfolio-env.eba-seppabie.us-west-2.elasticbeanstalk.com']
 
@@ -118,9 +118,9 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": env('DATABASE'),
-            "USER": env("USER"),
-            "PASSWORD": env("PASSWORD"),
+            "NAME": os.environ.get('DATABASE'),
+            "USER": os.environ.get("USER"),
+            "PASSWORD": os.environ.get("PASSWORD"),
             "HOST": env('HOST'),
             "PORT": env('PORT'),
         }
@@ -166,7 +166,7 @@ else:
     # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
     STATIC_URL = "/static/"
-    # STATIC_ROOT = os.path.join(BASE_DIR, "..", "projects", "static")
+    STATIC_ROOT = os.path.join(BASE_DIR, "..", "projects", "static")
     STATICFILES_DIRS = [
         BASE_DIR / "projects/static",
     ]
