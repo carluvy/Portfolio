@@ -23,7 +23,7 @@ from blog import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("projects.urls") + static(settings.MEDIA_URL, docuumet_root=settings.MEDIA_ROOT)),
+    path("", include("projects.urls")),
     path("blog/", include("blog.urls")),
     path("user/", include("users.urls")),
     path("password_reset/done/",
