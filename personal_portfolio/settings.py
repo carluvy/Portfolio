@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ie#35@ev2+ode9f8m(h2ooou$p^(aj*2a+m316u@1e*p1f_lab'
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-ie#35@ev2+ode9f8m(h2ooou$p^(aj*2a+m316u@1e*p1f_lab")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -110,17 +110,17 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": os.getenv('DATABASE'),
-            "USER": os.getenv("USER"),
-            "PASSWORD": os.getenv("PASSWORD"),
-            "HOST": os.getenv('HOST'),
-            "PORT": os.getenv('PORT'),
-        }
-    }
+# else:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql_psycopg2",
+#             "NAME": os.getenv('DATABASE'),
+#             "USER": os.getenv("USER"),
+#             "PASSWORD": os.getenv("PASSWORD"),
+#             "HOST": os.getenv('HOST'),
+#             "PORT": os.getenv('PORT'),
+#         }
+#     }
 
     # Password validation
     # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
