@@ -151,7 +151,7 @@ else:
     # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
     STATIC_URL = "/static/"
-    STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
+    STATIC_ROOT = os.path.join(BASE_DIR, "..", "projects", "static")
     STATICFILES_DIRS = [
         BASE_DIR / "projects/static",
     ]
