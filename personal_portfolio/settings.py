@@ -40,7 +40,6 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "l409w^i!s7$+9t0bc94%%p70fxb@bq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '1').lower() in ['true', 't', '1']
 
-
 ALLOWED_HOSTS = ['127.0.0.1', 'Techportfolio-env.eba-seppabie.us-west-2.elasticbeanstalk.com']
 
 # Application definition
@@ -73,6 +72,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "personal_portfolio.urls"
@@ -135,6 +136,9 @@ else:
         AWS_S3_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
         AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
+    else:
+        STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
     # Password validation
     # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -163,7 +167,6 @@ else:
 
     STATIC_URL = "/static/"
     # STATIC_ROOT = os.path.join(BASE_DIR, "..", "projects", "static")
-    STATIC_ROOT = 'static'
     STATICFILES_DIRS = [
         BASE_DIR / "projects/static",
     ]
