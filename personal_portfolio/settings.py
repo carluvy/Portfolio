@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
-# import environ
+import environ
 import asyncio
 
 from django.contrib.messages import constants as messages
@@ -24,9 +24,9 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
-# env = environ.Env()
-#
-# environ.Env.read_env()
+env = environ.Env()
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -116,9 +116,9 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": os.getenv('DATABASE'),
-            "USER": os.getenv("USER"),
-            "PASSWORD": os.getenv("PASSWORD"),
+            "NAME": env('DATABASE'),
+            "USER": env("USER"),
+            "PASSWORD": env("PASSWORD"),
             "HOST": os.getenv('HOST'),
             "PORT": os.getenv('PORT'),
         }
