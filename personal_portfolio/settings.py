@@ -16,6 +16,7 @@ import asyncio
 
 from django.contrib.messages import constants as messages
 
+
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-secondary',
     messages.INFO: 'alert-info',
@@ -35,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -149,7 +150,8 @@ if 'RDS_HOSTNAME' in os.environ:
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-    STATIC_URL = "static/"
+    STATIC_URL = "/static/"
+    STATIC_ROOT = "static"
     STATICFILES_DIRS = [
         BASE_DIR / "projects/static",
     ]
