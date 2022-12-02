@@ -39,7 +39,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['web-portfolio-dev.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['mytechportfolio.us-west-2.elasticbeanstalk.com/']
 
 # Application definition
 
@@ -102,12 +102,12 @@ WSGI_APPLICATION = "personal_portfolio.wsgi.application"
 if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         'default': {
-            # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            # 'NAME': os.environ['RDS_DB_NAME'],
-            # 'USER': os.environ['RDS_USERNAME'],
-            # 'PASSWORD': os.environ['RDS_PASSWORD'],
-            # 'HOST': os.environ['RDS_HOSTNAME'],
-            # 'PORT': os.environ['RDS_PORT'],
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
         }
     }
 else:
