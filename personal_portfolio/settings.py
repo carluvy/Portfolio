@@ -121,8 +121,8 @@ else:
             "NAME": os.environ.get('DATABASE'),
             "USER": os.environ.get("USER"),
             "PASSWORD": os.environ.get("PASSWORD"),
-            "HOST": env('HOST'),
-            "PORT": env('PORT'),
+            "HOST": os.environ.get('HOST'),
+            "PORT": os.environ.get('PORT'),
         }
     }
 
@@ -165,8 +165,8 @@ else:
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-    STATIC_URL = "/static/"
-    STATIC_ROOT = os.path.join(BASE_DIR, "..", "projects", "static")
+    STATIC_URL = "static/"
+    STATIC_ROOT = os.path.join(BASE_DIR / "projects/static")
     STATICFILES_DIRS = [
         BASE_DIR / "projects/static",
     ]
