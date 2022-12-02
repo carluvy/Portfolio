@@ -35,10 +35,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.getenv("SECRET_KEY", default='12345')
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "l409w^i!s7$+9t0bc94%%p70fxb@bq7w_(38*nk4u1t^s%^o^")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DJANGO_DEBUG', '1').lower() in ['true', 't', '1']
+
 
 ALLOWED_HOSTS = ['Techportfolio-env.eba-seppabie.us-west-2.elasticbeanstalk.com']
 
