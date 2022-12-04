@@ -104,108 +104,107 @@ WSGI_APPLICATION = "personal_portfolio.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if 'RDS_HOSTNAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.getenv('RDS_DB_NAME'),
-            'USER': os.getenv('RDS_USERNAME'),
-            'PASSWORD': os.getenv('RDS_PASSWORD'),
-            'HOST': os.getenv('RDS_HOSTNAME'),
-            'PORT': os.getenv('RDS_PORT'),
+# if 'RDS_HOSTNAME' in os.environ:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': os.getenv('RDS_DB_NAME'),
+#             'USER': os.getenv('RDS_USERNAME'),
+#             'PASSWORD': os.getenv('RDS_PASSWORD'),
+#             'HOST': os.getenv('RDS_HOSTNAME'),
+#             'PORT': os.getenv('RDS_PORT'),
+#         }
+#     }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get('DATABASE'),
+        "USER": os.environ.get("USER"),
+        "PASSWORD": os.environ.get("PASSWORD"),
+        "HOST": os.environ.get('HOST'),
+        "PORT": os.environ.get('PORT'),
+    }
+}
+
+# if 'AWS_STORAGE_BUCKET_NAME' in os.environ:
+#     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#
+#     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+#     AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
+#
+#     AWS_S3_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+#     AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+#
+# else:
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Password validation
+# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
+]
+
+# Internationalization
+# https://docs.djangoproject.com/en/4.1/topics/i18n/
+
+LANGUAGE_CODE = "en-us"
+
+TIME_ZONE = "UTC"
+
+USE_I18N = True
+
+USE_TZ = True
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+STATIC_URL = "static/"
+# STATIC_ROOT = os.path.join(BASE_DIR / "projects/static")
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "projects/static",
+]
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+SITE_ID = 2
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+
+    # 'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
         }
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": os.environ.get('DATABASE'),
-            "USER": os.environ.get("USER"),
-            "PASSWORD": os.environ.get("PASSWORD"),
-            "HOST": os.environ.get('HOST'),
-            "PORT": os.environ.get('PORT'),
-        }
-    }
-
-    # if 'AWS_STORAGE_BUCKET_NAME' in os.environ:
-    #     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    #     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    #
-    #     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-    #     AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
-    #
-    #     AWS_S3_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    #     AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    #
-    # else:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-    # Password validation
-    # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
-    AUTH_PASSWORD_VALIDATORS = [
-        {
-            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-        },
-        {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
-        {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
-        {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
-    ]
-
-    # Internationalization
-    # https://docs.djangoproject.com/en/4.1/topics/i18n/
-
-    LANGUAGE_CODE = "en-us"
-
-    TIME_ZONE = "UTC"
-
-    USE_I18N = True
-
-    USE_TZ = True
-
-    # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-    STATIC_URL = "static/"
-    # STATIC_ROOT = os.path.join(BASE_DIR / "projects/static")
-    STATIC_ROOT = BASE_DIR / "staticfiles"
-    STATICFILES_DIRS = [
-        BASE_DIR / "projects/static",
-    ]
-
-    # Default primary key field type
-    # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
-    DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-    SITE_ID = 2
-    LOGIN_REDIRECT_URL = "/"
-    LOGOUT_REDIRECT_URL = "/"
-
-    # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    # EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-    # EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_USE_TLS = True
-    EMAIL_PORT = 587
-    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-
-    AUTHENTICATION_BACKENDS = [
-        'django.contrib.auth.backends.ModelBackend',
-
-        # 'allauth.account.auth_backends.AuthenticationBackend'
-    ]
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'google': {
-            'SCOPE': [
-                'profile',
-                'email',
-            ],
-            'AUTH_PARAMS': {
-                'access_type': 'online',
-            }
-        }
-    }
+}
