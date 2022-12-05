@@ -136,8 +136,6 @@ DATABASES = {
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -166,7 +164,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 if not DEBUG:
-    STATIC_ROOT = BASE_DIR, "staticfiles"
+    STATIC_ROOT = BASE_DIR / "staticfiles"
     # STATICFILES_DIRS = [BASE_DIR / "projects/static", ]
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
