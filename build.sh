@@ -5,8 +5,9 @@ set -o errexit
 
 pip3 install --upgrade pip
 pip3 install -r requirements.txt
+#pip3 install upgrade --all
 
 
 python manage.py collectstatic --no-input
 python manage.py migrate
-python manage.py createsuperuser --username=admin
+python manage.py createsuperuser --username=admin --email=admin@admin.com --no-input
