@@ -123,25 +123,26 @@ WSGI_APPLICATION = "personal_portfolio.wsgi.application"
 #             'PORT': os.getenv('RDS_PORT'),
 #         }
 #     }
-# DATABASES = {
-#
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": os.environ.get('DATABASE'),
-#         "USER": os.environ.get("USER"),
-#         "PASSWORD": os.environ.get("PASSWORD"),
-#         "HOST": os.environ.get('HOST'),
-#         "PORT": os.environ.get('PORT'),
-#
-#     }
-#
-# }
 DATABASES = {
-    "default": dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/personal_portfolio',
-        conn_max_age=600)
+
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get('DATABASE'),
+        "USER": os.environ.get("USER"),
+        "PASSWORD": os.environ.get("PASSWORD"),
+        "HOST": os.environ.get('HOST'),
+        "PORT": os.environ.get('PORT'),
+
+    }
+
 }
-# DATABASES['default'].update(db_from_env)
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default='postgresql://postgres:postgres@localhost:5432/personal_portfolio',
+#         conn_max_age=600)
+# }
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
