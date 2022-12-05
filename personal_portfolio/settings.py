@@ -37,7 +37,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", default="SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
@@ -130,10 +130,14 @@ DATABASES = {
         "PASSWORD": os.environ.get("PASSWORD"),
         "HOST": os.environ.get('HOST'),
         "PORT": os.environ.get('PORT'),
+
     }
+
 }
 
-db_from_env = dj_database_url.config()
+db_from_env = dj_database_url.config(
+    'postgres://steele:g4y3Zj6BoJA2i8zHEwyJ0TZHKKbExCel@dpg-ce6p8uarrk071o69g3j0-a/portfolio_vw5u',
+    conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
 # Password validation
@@ -163,10 +167,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-if not DEBUG:
-    STATIC_ROOT = BASE_DIR / "staticfiles"
-    # STATICFILES_DIRS = [BASE_DIR / "projects/static", ]
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "projects/static", ]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
