@@ -15,7 +15,7 @@ from projects.models import Project
 
 class ProjectView(ListView):
     model = Project
-    template_name = 'project_list.html'
+    template_name = 'index.html'
 
 
 # def project_index(request):
