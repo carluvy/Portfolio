@@ -53,6 +53,9 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
+    "projects.apps.ProjectsConfig",
+    "blog.apps.BlogConfig",
+    "users.apps.UsersConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -66,9 +69,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',  # for Google OAuth 2.0
-    "projects.apps.ProjectsConfig",
-    "blog.apps.BlogConfig",
-    "users.apps.UsersConfig",
     "django.contrib.postgres",
     "storages",
 ]

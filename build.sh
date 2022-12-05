@@ -7,4 +7,4 @@ pip3 install -r requirements.txt
 
 python manage.py collectstatic --no-input
 python manage.py migrate
-py manage.py createsu
+python manage.py createsu
