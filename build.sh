@@ -10,4 +10,4 @@ pip3 install -r requirements.txt
 
 python manage.py collectstatic --no-input
 python manage.py migrate
-#python manage.py createsuperuser --username=admin  --no-input
+python manage.py createsuperuser --username=carla  --password=adminadmin --no-input --email=admin@admin.com

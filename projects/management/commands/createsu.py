@@ -15,5 +15,6 @@ class Command(BaseCommand):
                 username=DJANGO_SU_NAME,
                 password=DJANGO_SU_PASSWORD,
                 email=DJANGO_SU_EMAIL)
+            super_user.is_superuser = True
 
             super_user.save()
