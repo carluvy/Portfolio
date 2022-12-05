@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+
+import dj_database_url
 import environ
 import asyncio
 
@@ -35,12 +37,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", default="SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
+# DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
+DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['127.0.0.1', 'Techportfolio-env.eba-seppabie.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['*']
+
+# RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')if RENDER_EXTERNAL_HOSTNAME:
+# ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -116,6 +122,7 @@ WSGI_APPLICATION = "personal_portfolio.wsgi.application"
 #         }
 #     }
 DATABASES = {
+
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": os.environ.get('DATABASE'),
@@ -126,18 +133,10 @@ DATABASES = {
     }
 }
 
-# if 'AWS_STORAGE_BUCKET_NAME' in os.environ:
-#     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#
-#     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-#     AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
-#
-#     AWS_S3_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-#     AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-#
-# else:
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -166,11 +165,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-# STATIC_ROOT = os.path.join(BASE_DIR / "projects/static")
-STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [
-    BASE_DIR / "projects/static",
-]
+if not DEBUG:
+    STATIC_ROOT = BASE_DIR, "staticfiles"
+    # STATICFILES_DIRS = [BASE_DIR / "projects/static", ]
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
