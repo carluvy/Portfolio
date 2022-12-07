@@ -13,17 +13,20 @@ from projects.forms import PostSearchForm
 from projects.models import Project
 
 
-class ProjectView(ListView):
-    model = Project
-    template_name = 'index.html'
+# class ProjectView(ListView):
+#     model = Project
+#     template_name = 'index.html'
 
 
-# def project_index(request):
-#     projects = Project.objects.all()
-#     context = {
-#         'projects': projects
-#     }
-#     return render(request, 'project_index.html', context)
+def project_index(request):
+    projects = Project.objects.all()
+    context = {
+        'projects': projects
+    }
+    for project in projects:
+        print(project.image)
+    return render(request, 'index.html', context)
+
 
 class ProjectDetail(DetailView):
     model = Project

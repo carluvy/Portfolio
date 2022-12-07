@@ -31,7 +31,7 @@ def register_request(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect("project_list")
+            return redirect("index")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = CustomUserCreationForm()
     return render(request=request, template_name="users/register.html", context={"form": form})
@@ -59,7 +59,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect(reverse('project_list'))
+                return redirect(reverse('index'))
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -72,7 +72,7 @@ def login_request(request):
 def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
-    return redirect("project_list")
+    return redirect("index")
 
 
 def password_reset_request(request):
@@ -104,7 +104,7 @@ def password_reset_request(request):
                         return HttpResponse('Invalid header found.')
                     messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
                     # return redirect("project_index")
-                    return redirect("project_list")
+                    return redirect("index")
             messages.error(request, 'An invalid email has been entered.')
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="registration/password_reset.html",
@@ -119,9 +119,9 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       "if an account exists with the email you entered. You should receive them shortly." \
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url = reverse_lazy('project_index')
+    success_url = reverse_lazy('index')
 
 
 def signup_redirect(request):
     messages.error(request, "Something wrong here, it may be that you already have account!")
-    return redirect("project_list")
+    return redirect("index")

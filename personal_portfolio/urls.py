@@ -13,11 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
-from django.conf import settings
 
 from blog import views
 
@@ -38,6 +38,9 @@ urlpatterns = [
                            template_name='registration/password_reset_complete.html'),
                        name='password_reset_complete'),
                   path("accounts/", include("allauth.urls")),
+                  # path('social-auth/', include('allauth.socialaccount.providers.google.urls'))
                   # path("search/", views.search_blogs(search_params='data', request=raw_input), name="search_results"),
 
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+              ] + \
+              static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+              static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
