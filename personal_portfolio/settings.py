@@ -70,7 +70,7 @@ INSTALLED_APPS = [
     "projects.apps.ProjectsConfig",
     "blog.apps.BlogConfig",
     "users.apps.UsersConfig",
-    "storages",
+    # "storages",
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -176,7 +176,8 @@ MEDIA_URL = "/media/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'media', )]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 # FILE_PATH_FIELD_DIRECTORY = 'projects/static/img'
 
 STATICFILES_FINDERS = [
