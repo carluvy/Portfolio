@@ -23,8 +23,8 @@ def project_index(request):
     context = {
         'projects': projects
     }
-    for project in projects:
-        print(project.image)
+    # for project in projects:
+    #     print(project.image)
     return render(request, 'index.html', context)
 
 

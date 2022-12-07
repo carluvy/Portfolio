@@ -5,7 +5,7 @@ from blog.models import Post, Category
 
 
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("title", "last_modified")
 
 
 class CategoryAdmin(admin.ModelAdmin):
