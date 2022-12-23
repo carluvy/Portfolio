@@ -16,6 +16,7 @@ import dj_database_url
 import environ
 import asyncio
 
+# from django.conf.global_settings import ALLOWED_HOSTS
 from django.conf.global_settings import ALLOWED_HOSTS
 from django.contrib.messages import constants as messages
 
@@ -42,12 +43,16 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
+# DEBUG = 'RENDER' not in os.environ
+
 DEBUG = 'RENDER' not in os.environ
-
-
+# ALLOWED_HOSTS = ['*']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = ['*']
 
 # Application definition
 
@@ -61,6 +66,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
+    'corsheaders',
     'crispy_forms',
     'allauth',
     'allauth.account',
@@ -70,11 +76,15 @@ INSTALLED_APPS = [
     "projects.apps.ProjectsConfig",
     "blog.apps.BlogConfig",
     "users.apps.UsersConfig",
-    # "storages",
+    "storages",
+    'swahiliApi',
+    'rest_framework',
+    'coreapi',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -99,6 +109,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
+                "django.template.context_processors.media",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
@@ -171,13 +182,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "/static/"
-MEDIA_URL = "/media/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'media', )]
+STATIC_URL = "static/"
+# MEDIA_URL = "/media/"
+STATIC_ROOT = os.path.join(BASE_DIR, "/staticfiles")
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static')]
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 # FILE_PATH_FIELD_DIRECTORY = 'projects/static/img'
 
 STATICFILES_FINDERS = [
@@ -219,4 +231,11 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         }
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10
+    'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler'
 }
