@@ -22,13 +22,13 @@ from rest_framework.documentation import include_docs_urls
 
 from blog import views
 
-
 urlpatterns = [
 
     path("admin/", admin.site.urls),
 
     path('docs/', include_docs_urls(title='Swahili API')),
     path("words/", include("swahiliApi.urls")),
+
 
     path("", include("projects.urls")),
     path("blog/", include("blog.urls")),
@@ -49,6 +49,7 @@ urlpatterns = [
     # path("search/", views.search_blogs(search_params='data', request=raw_input), name="search_results"),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# +

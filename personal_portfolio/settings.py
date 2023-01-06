@@ -16,9 +16,9 @@ import dj_database_url
 import environ
 import asyncio
 
-# from django.conf.global_settings import ALLOWED_HOSTS
 from django.conf.global_settings import ALLOWED_HOSTS
 from django.contrib.messages import constants as messages
+from django.template.context_processors import static
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-secondary',
@@ -43,9 +43,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
-# DEBUG = 'RENDER' not in os.environ
-
 DEBUG = 'RENDER' not in os.environ
+
+# DEBUG = 'RENDER' not in os.environ
+# DEBUG = True
 # ALLOWED_HOSTS = ['*']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -80,12 +81,14 @@ INSTALLED_APPS = [
     'swahiliApi',
     'rest_framework',
     'coreapi',
+    # 'imagestest',
+
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -182,12 +185,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+# STATIC_URL = "/static/"
+STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
+STATIC_URL = STATIC_HOST + "/static/"
+# if not DEBUG:
 # MEDIA_URL = "/media/"
+
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static')]
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = [BASE_DIR / 'projects/static']
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 # FILE_PATH_FIELD_DIRECTORY = 'projects/static/img'
