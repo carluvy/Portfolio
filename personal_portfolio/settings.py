@@ -10,12 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+import sys
 from pathlib import Path
 
 import dj_database_url
 import environ
 import asyncio
 
+# from django.conf.global_settings import ALLOWED_HOSTS
 from django.conf.global_settings import ALLOWED_HOSTS
 from django.contrib.messages import constants as messages
 from django.template.context_processors import static
@@ -43,14 +45,17 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
-DEBUG = 'RENDER' not in os.environ
-
 # DEBUG = 'RENDER' not in os.environ
-# DEBUG = True
+
+DEBUG = 'RENDER' not in os.environ
+# DEBUG = False
 # ALLOWED_HOSTS = ['*']
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+if not DEBUG:
+    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+
+    if RENDER_EXTERNAL_HOSTNAME:
+        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = ['*']
@@ -86,9 +91,11 @@ INSTALLED_APPS = [
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'corsheaders.middleware.CorsMiddleware',
+
+    "django.middleware.security.SecurityMiddleware",
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -185,18 +192,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_URL = "/static/"
-STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
-STATIC_URL = STATIC_HOST + "/static/"
+STATIC_URL = "/static/"
+# STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
+# STATIC_URL = STATIC_HOST + "/static/"
 # if not DEBUG:
 # MEDIA_URL = "/media/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = [BASE_DIR / 'projects/static']
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', )]
+
+# TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+# STATICFILES_STORAGE = (
+#     'django.contrib.staticfiles.storage.StaticFilesStorage'
+#     if TESTING
+#     else
+#     "whitenoise.storage.CompressedManifestStaticFilesStorage")
+
+WHITENOISE_MANIFEST_STRICT = False
+# personal_portfolio.storage.WhiteNoiseStaticFilesStorage'
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 # FILE_PATH_FIELD_DIRECTORY = 'projects/static/img'
 
@@ -247,3 +264,75 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 10
     'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler'
 }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+
+    'filters': {
+        # 'special': {
+        #     '()': 'project.logging.SpecialFilter',
+        #     'foo': 'bar',
+        # },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            # 'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        # 'django.server': {
+        #     'level': 'INFO',
+        #     'class': 'logging.StreamHandler',
+        #     'formatter': 'django.server',
+        # },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            "reporter_class": "django.views.debug.ExceptionReporter"
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        # 'django.server': {
+        #     'handlers': ['django.server'],
+        #     'level': 'INFO',
+        #     'propagate': False,
+        # },
+
+        'myproject.custom': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+            "reporter_class": "django.views.debug.ExceptionReporter"
+        },
+    }
+
+}
+
+ADMINS = [('Carla', 'carngie@gmail.com'), ]
