@@ -28,17 +28,17 @@ def project_index(request):
     return render(request, 'index.html', context)
 
 
-class ProjectDetail(DetailView):
-    model = Project
-    template_name = 'project_detail.html'
+# class ProjectDetail(DetailView):
+#     model = Project
+#     template_name = 'project_detail.html'
 
 
-# def project_detail(request, pk):
-#     project = Project.objects.get(pk=pk)
-#     context = {
-#         'project': project
-#     }
-#     return render(request, 'project_detail.html', context)
+def project_detail(request, pk):
+    project = Project.objects.get(pk=pk)
+    context = {
+        'project': project
+    }
+    return render(request, 'project_detail.html', context)
 
 
 # def search_projects(request):
