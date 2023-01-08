@@ -201,7 +201,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static/images', )]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', )]
 
 # TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 # STATICFILES_STORAGE = (
@@ -213,15 +213,15 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static/images', )]
 WHITENOISE_MANIFEST_STRICT = False
 # personal_portfolio.storage.WhiteNoiseStaticFilesStorage'
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 # FILE_PATH_FIELD_DIRECTORY = 'projects/static/img'
 
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 
 ]
 # Default primary key field type
