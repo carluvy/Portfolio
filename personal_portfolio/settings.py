@@ -17,7 +17,7 @@ import dj_database_url
 import environ
 import asyncio
 
-# from django.conf.global_settings import ALLOWED_HOSTS
+
 from django.conf.global_settings import ALLOWED_HOSTS
 from django.contrib.messages import constants as messages
 from django.template.context_processors import static
@@ -196,11 +196,11 @@ STATIC_URL = "/static/"
 # STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
 # STATIC_URL = STATIC_HOST + "/static/"
 # if not DEBUG:
-MEDIA_URL = "/media/"
+# MEDIA_URL = "/media/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', )]
 
 # TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
@@ -212,8 +212,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', )]
 
 WHITENOISE_MANIFEST_STRICT = False
 # personal_portfolio.storage.WhiteNoiseStaticFilesStorage'
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 # FILE_PATH_FIELD_DIRECTORY = 'projects/static/img'
 
@@ -268,10 +268,10 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler'
 }
 
-
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    # 'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'formatters': {
         'verbose': {
             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
@@ -339,4 +339,4 @@ LOGGING = {
 
 }
 
-ADMINS = [('Carla', 'carngie@gmail.com'), ]
+ADMINS = [(os.environ.get("ADMIN_NAME"), os.environ.get("EMAIL_HOST_USER"))]
