@@ -17,7 +17,6 @@ import dj_database_url
 import environ
 import asyncio
 
-
 from django.conf.global_settings import ALLOWED_HOSTS
 from django.contrib.messages import constants as messages
 from django.template.context_processors import static
@@ -50,7 +49,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 DEBUG = 'RENDER' not in os.environ
 # DEBUG = False
 # ALLOWED_HOSTS = ['*']
-
+#
 if not DEBUG:
     RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
@@ -87,6 +86,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'coreapi',
     # 'imagestest',
+    # 'pipeline',
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -95,6 +95,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
     "django.middleware.security.SecurityMiddleware",
+    # 'pipeline.middleware.MinifyHTMLMiddleware',
 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -201,7 +202,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', )]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', )]
 
 # TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 # STATICFILES_STORAGE = (
@@ -211,16 +212,19 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', )]
 #     "whitenoise.storage.CompressedManifestStaticFilesStorage")
 
 WHITENOISE_MANIFEST_STRICT = False
+# WHITENOISE_INDEX_FILE = True
 # personal_portfolio.storage.WhiteNoiseStaticFilesStorage'
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "pipeline.storage.PipelineStorage"
 # FILE_PATH_FIELD_DIRECTORY = 'projects/static/img'
 
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'pipeline.finders.PipelineFinder'
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 
 ]
@@ -268,10 +272,11 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler'
 }
 
+
 LOGGING = {
     'version': 1,
-    # 'disable_existing_loggers': False,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
+    # 'disable_existing_loggers': True,
     'formatters': {
         'verbose': {
             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
