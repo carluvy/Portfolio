@@ -21,6 +21,8 @@ from django.conf.global_settings import ALLOWED_HOSTS
 from django.contrib.messages import constants as messages
 from django.template.context_processors import static
 
+import personal_portfolio
+
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-secondary',
     messages.INFO: 'alert-info',
@@ -85,16 +87,13 @@ INSTALLED_APPS = [
     'swahiliApi',
     'rest_framework',
     'coreapi',
-    # 'imagestest',
-    # 'pipeline',
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'corsheaders.middleware.CorsMiddleware',
-
-    "django.middleware.security.SecurityMiddleware",
     # 'pipeline.middleware.MinifyHTMLMiddleware',
 
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -211,7 +210,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 #     else
 #     "whitenoise.storage.CompressedManifestStaticFilesStorage")
 
-WHITENOISE_MANIFEST_STRICT = False
+# WHITENOISE_MANIFEST_STRICT = False
 # WHITENOISE_INDEX_FILE = True
 # personal_portfolio.storage.WhiteNoiseStaticFilesStorage'
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -270,78 +269,6 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 10
     'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler'
-}
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    # 'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-    },
-
-    'filters': {
-        # 'special': {
-        #     '()': 'project.logging.SpecialFilter',
-        #     'foo': 'bar',
-        # },
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse',
-        },
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            # 'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        },
-        # 'django.server': {
-        #     'level': 'INFO',
-        #     'class': 'logging.StreamHandler',
-        #     'formatter': 'django.server',
-        # },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            "reporter_class": "django.views.debug.ExceptionReporter"
-        }
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-        # 'django.server': {
-        #     'handlers': ['django.server'],
-        #     'level': 'INFO',
-        #     'propagate': False,
-        # },
-
-        'myproject.custom': {
-            'handlers': ['console', 'mail_admins'],
-            'level': 'INFO',
-            "reporter_class": "django.views.debug.ExceptionReporter"
-        },
-    }
-
 }
 
 ADMINS = [(os.environ.get("ADMIN_NAME"), os.environ.get("EMAIL_HOST_USER"))]
