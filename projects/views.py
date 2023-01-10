@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView
 
@@ -13,8 +14,14 @@ from projects.forms import PostSearchForm
 from projects.models import Project
 
 
-# class ProjectView(ListView):
+# class ProjectBaseView(View):
 #     model = Project
+#     # for m in model.objects.all():
+#     # print("file paths for the images is:", m.image)
+#     success_url = reverse_lazy('index')
+#
+#
+# class ProjectView(ProjectBaseView, ListView):
 #     template_name = 'index.html'
 
 
@@ -25,7 +32,7 @@ def project_index(request):
     }
     for project in projects:
         print(project.image)
-    return render(request, 'index.html', context)
+    return render(request, 'project_index.html', context)
 
 
 # class ProjectDetail(DetailView):

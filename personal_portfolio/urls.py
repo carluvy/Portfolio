@@ -29,7 +29,6 @@ urlpatterns = [
     path('docs/', include_docs_urls(title='Swahili API')),
     path("words/", include("swahiliApi.urls")),
 
-
     path("", include("projects.urls")),
     path("blog/", include("blog.urls")),
     path("user/", include("users.urls")),
@@ -50,6 +49,5 @@ urlpatterns = [
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

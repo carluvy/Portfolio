@@ -21,7 +21,7 @@ from users.forms import CustomUserCreationForm
 
 
 # def dashboard(request):
-#     return render(request, "projects/templates/project_index.html")
+#     return render(request, "projects/templates/duo_index.html")
 
 
 def register_request(request):

@@ -50,8 +50,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 
 DEBUG = 'RENDER' not in os.environ
 # DEBUG = False
-# ALLOWED_HOSTS = ['*']
-#
+
+
 if not DEBUG:
     RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
@@ -94,7 +94,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'corsheaders.middleware.CorsMiddleware',
-    # 'pipeline.middleware.MinifyHTMLMiddleware',
 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -114,7 +113,8 @@ TEMPLATES = [
 
             "personal_portfolio/templates/",
             "blog/templates",
-            "projects/templates"
+            "projects/templates",
+
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -158,6 +158,7 @@ DATABASES = {
     }
 
 }
+
 # DATABASES = {
 #     "default": dj_database_url.config(
 #         default='postgresql://postgres:postgres@localhost:5432/personal_portfolio',
@@ -193,32 +194,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/static/"
-# STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
-# STATIC_URL = STATIC_HOST + "/static/"
+
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static')]
+STATICFILES_DIRS = [BASE_DIR, 'projects/static/']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join('staticfiles')
 # if not DEBUG:
-# MEDIA_URL = "/media/"
-
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', )]
-
-# TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
-# STATICFILES_STORAGE = (
-#     'django.contrib.staticfiles.storage.StaticFilesStorage'
-#     if TESTING
-#     else
-#     "whitenoise.storage.CompressedManifestStaticFilesStorage")
+# Tell Django to copy statics to the `staticfiles` directory
+# in your application directory on Render.
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# WHITENOISE_MANIFEST_STRICT = True
 
 # WHITENOISE_MANIFEST_STRICT = False
 # WHITENOISE_INDEX_FILE = True
-# personal_portfolio.storage.WhiteNoiseStaticFilesStorage'
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-# STATICFILES_STORAGE = "pipeline.storage.PipelineStorage"
-# FILE_PATH_FIELD_DIRECTORY = 'projects/static/img'
-
+FILE_PATH_FIELD_DIRECTORY = 'projects/static/projects/img/'
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',

@@ -33,6 +33,11 @@
                     <a class="nav-link" href="{% url 'blog_index' %}">Blog</a>
                 </li>
 
+{#            <ul class="navbar-nav mr-auto">#}
+{#                <li class="nav-item active">#}
+{#                    <a class="nav-link" href="{% url 'duo_index' %}">Duo</a>#}
+{#                </li>#}
+
 
                 {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -111,7 +116,9 @@
 {#        </div>#}
 {#    {% endif %}#}
 
-
+<footer class="container pt-3 mt-4 text-muted border-top">
+    <span class="align-middle"> Developed by Carla Aluvai &copy 2022</span>
+</footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
