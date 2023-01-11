@@ -30,8 +30,7 @@ def project_index(request):
     context = {
         'projects': projects
     }
-    for project in projects:
-        print(project.image)
+
     return render(request, 'project_index.html', context)
 
 
@@ -125,3 +124,6 @@ class SearchResultsView(ListView):
     #
     #         # return HttpResponseRedirect('/success')
     #     return render(request, self.template_name, {'form': form, 'blogs': blogs})
+
+
+

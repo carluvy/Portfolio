@@ -28,8 +28,9 @@ urlpatterns = [
 
     path('docs/', include_docs_urls(title='Swahili API')),
     path("words/", include("swahiliApi.urls")),
+    path("", include("about.urls")),
 
-    path("", include("projects.urls")),
+    path("projects/", include("projects.urls")),
     path("blog/", include("blog.urls")),
     path("user/", include("users.urls")),
     path("password_reset/done/",

@@ -17,7 +17,7 @@ import dj_database_url
 import environ
 import asyncio
 
-from django.conf.global_settings import ALLOWED_HOSTS
+# from django.conf.global_settings import ALLOWED_HOSTS
 from django.contrib.messages import constants as messages
 from django.template.context_processors import static
 
@@ -48,15 +48,15 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 # DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
 # DEBUG = 'RENDER' not in os.environ
 
-DEBUG = 'RENDER' not in os.environ
-# DEBUG = False
+# DEBUG = 'RENDER' not in os.environ
+DEBUG = False
 
-
-if not DEBUG:
-    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-
-    if RENDER_EXTERNAL_HOSTNAME:
-        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+ALLOWED_HOSTS = ['*']
+# if not DEBUG:
+#     RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+#
+#     if RENDER_EXTERNAL_HOSTNAME:
+#         ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = ['*']
@@ -84,9 +84,11 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "users.apps.UsersConfig",
     "storages",
-    'swahiliApi',
+    'swahiliApi.apps.SwahiliapiConfig',
     'rest_framework',
     'coreapi',
+    'about.apps.AboutConfig',
+
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -112,8 +114,9 @@ TEMPLATES = [
         "DIRS": [
 
             "personal_portfolio/templates/",
-            "blog/templates",
-            "projects/templates",
+            "blog/templates/",
+            "projects/templates/",
+            "about/templates/",
 
         ],
         "APP_DIRS": True,
@@ -196,7 +199,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static')]
-STATICFILES_DIRS = [BASE_DIR, 'projects/static/']
+# STATICFILES_DIRS = [BASE_DIR, 'projects/static/', 'about/static/']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = os.path.join('staticfiles')
 # if not DEBUG:
@@ -204,7 +207,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # in your application directory on Render.
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # WHITENOISE_MANIFEST_STRICT = True
 
@@ -213,7 +216,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 FILE_PATH_FIELD_DIRECTORY = 'projects/static/projects/img/'
-
+PROFILE_PIC_PATH = 'about/static/about/img/'
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
