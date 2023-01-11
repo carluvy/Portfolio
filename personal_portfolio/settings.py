@@ -198,8 +198,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static')]
-# STATICFILES_DIRS = ['projects/static/', 'about/static/']
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', 'about/static/')]
+# STATICFILES_DIRS = [BASE_DIR, 'projects/static/', 'about/static/']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = os.path.join('staticfiles')
 # if not DEBUG:

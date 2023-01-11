@@ -30,7 +30,7 @@ urlpatterns = [
     path("words/", include("swahiliApi.urls")),
     path("", include("about.urls")),
 
-    path("projects/", include("projects.urls")),
+    path("portfolio/", include("projects.urls")),
     path("blog/", include("blog.urls")),
     path("user/", include("users.urls")),
     path("password_reset/done/",
