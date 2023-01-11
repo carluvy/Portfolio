@@ -46,11 +46,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
-# DEBUG = 'RENDER' not in os.environ
+
 
 DEBUG = 'RENDER' not in os.environ
 # DEBUG = False
-
+#
 # ALLOWED_HOSTS = ['*']
 if not DEBUG:
     RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -198,8 +198,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static')]
-# STATICFILES_DIRS = [BASE_DIR, 'projects/static/', 'about/static/']
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static')]
+# STATICFILES_DIRS = ['projects/static/', 'about/static/']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = os.path.join('staticfiles')
 # if not DEBUG:
