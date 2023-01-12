@@ -31,7 +31,7 @@ def project_index(request):
         'projects': projects
     }
 
-    return render(request, 'index.html', context)
+    return render(request, 'project_index.html', context)
 
 
 # class ProjectDetail(DetailView):

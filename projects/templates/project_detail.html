@@ -9,42 +9,22 @@
 {% load static %}
 
 {% block page_content %}
-    <h1>{{ project.title }}</h1><br>
-
- <div class="w3-padding-32 w3-content w3-text-grey" style="margin-bottom:64px">
-    <div class="row">
-        <div class="col-md-8">
-            <img src="{% static project.image %}" alt="" width="100%">
-        </div>
-        <div class="col-md-4">
-            <h5>About the project:</h5>
-            <p>{{ project.description }}</p>
-            <br>
-            <hr>
-            <h5>Technology used:</h5>
-            <p>{{ project.technology }}</p><br>
-            <hr>
-            <br>
-
-            <div class="card-link">
-
-                <p><a href="{{ project.github_url }}" target="_blank" class="link-dark" style="text-decoration:none"> View code on GitHub
-                    <i class="fa fa-github-square w3-hover-opacity"></i></a>
-                </p>
+<h1>{{ project.title }}</h1><br>
 
 
-               <p><a href="{{ project.medium_url }}" target="_blank" class="link-dark" style="text-decoration:none">Read more on Medium
-                    <i class="fa fa-medium w3-hover-opacity"></i></a>
-               </p>
-
+        <div class="row">
+            <div class="col-md-8">
+                <img src="{% static project.image %}" alt="" width="100%">
             </div>
-
-
+            <div class="col-md-4">
+                <h5>About the project:</h5>
+                <p>{{ project.description }}</p>
+                <br>
+                <h5>Technology used:</h5>
+                <p>{{ project.technology }}</p>
+            </div>
         </div>
-    </div>
-         <hr class="w3-opacity">
- </div>
-    <br><br><br><br><br><br><br> <br><br><br>
+     <br><br><br><br><br><br><br> <br><br><br>
 
 
 {% endblock %}
