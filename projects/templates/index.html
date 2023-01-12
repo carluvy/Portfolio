@@ -3,27 +3,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Projects</title>
+    <title>Portfolio</title>
 </head>
 <body>
 {% extends "base.html" %}
 {% load static %}
-{#{% load pipeline %}#}
 
-{% block page_content %}<br><br><br>
-
-    <h1>Projects</h1>
-
+{% block page_content %}
+    <br><br><br>
     <div class="row">
-        {% for project in project_list %}
+        {% for project in projects %}
             <div class="col-md-4">
                 <div class="card mb-2">
-                    <img class="card-img-top" src="{% static project.image %}">
+                    <img class="card-img-top" src="{% static project.image %}" alt="#">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.description }}</p>
+                        <p class="card-text">{{ project.description | slice:":200"}}</p>
                         <a href="{% url 'project_detail' project.pk %}"
-                           class="btn btn-primary">
+                           class="btn btn-primary stretched-link">
                             Read More
                         </a>
                     </div>

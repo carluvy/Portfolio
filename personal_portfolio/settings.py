@@ -137,17 +137,6 @@ WSGI_APPLICATION = "personal_portfolio.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# if 'RDS_HOSTNAME' in os.environ:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': os.getenv('RDS_DB_NAME'),
-#             'USER': os.getenv('RDS_USERNAME'),
-#             'PASSWORD': os.getenv('RDS_PASSWORD'),
-#             'HOST': os.getenv('RDS_HOSTNAME'),
-#             'PORT': os.getenv('RDS_PORT'),
-#         }
-#     }
 DATABASES = {
 
     "default": {
@@ -201,26 +190,22 @@ STATIC_URL = "/static/"
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', 'about/static/')]
 STATICFILES_DIRS = [BASE_DIR, 'projects/static/', 'about/static/']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = os.path.join('staticfiles')
-# if not DEBUG:
-# Tell Django to copy statics to the `staticfiles` directory
-# in your application directory on Render.
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# WHITENOISE_MANIFEST_STRICT = True
+
 
 # WHITENOISE_MANIFEST_STRICT = False
-# WHITENOISE_INDEX_FILE = True
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+
+
 FILE_PATH_FIELD_DIRECTORY = 'projects/static/projects/img/'
 PROFILE_PIC_PATH = 'about/static/about/img/'
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'pipeline.finders.PipelineFinder'
+
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 
 ]
@@ -263,8 +248,8 @@ SOCIALACCOUNT_PROVIDERS = {
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # 'PAGE_SIZE': 10
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
     'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler'
 }
 
