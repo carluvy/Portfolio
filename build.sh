@@ -11,6 +11,6 @@ pip3 install -r requirements.txt
 
 python manage.py makemigrations
 python manage.py migrate
-python manage.py createsuperuser --noinput
+python manage.py createsuperuser
 python manage.py collectstatic --no-input
 
