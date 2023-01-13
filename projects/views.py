@@ -44,6 +44,7 @@ def project_detail(request, pk):
     context = {
         'project': project
     }
+
     return render(request, 'project_detail.html', context)
 
 
@@ -124,6 +125,3 @@ class SearchResultsView(ListView):
     #
     #         # return HttpResponseRedirect('/success')
     #     return render(request, self.template_name, {'form': form, 'blogs': blogs})
-
-
-

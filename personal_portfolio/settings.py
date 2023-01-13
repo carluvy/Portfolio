@@ -49,7 +49,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 
 
 DEBUG = 'RENDER' not in os.environ
-# DEBUG = True
+# DEBUG = False
 #
 # ALLOWED_HOSTS = ['*']
 if not DEBUG:
@@ -88,7 +88,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'coreapi',
     'about.apps.AboutConfig',
-
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -187,15 +186,13 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'projects/static', 'about/static/')]
-STATICFILES_DIRS = [BASE_DIR, 'projects/static/', 'about/static/']
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+# STATICFILES_DIRS = [os.path.join(BASE_DIR / 'projects/static'), os.path.join(BASE_DIR / 'about/static/'), ]
+# STATICFILES_DIRS = [BASE_DIR / 'projects/static/', BASE_DIR / 'about/static/', ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 # WHITENOISE_MANIFEST_STRICT = False
 
