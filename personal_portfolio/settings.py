@@ -88,6 +88,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'coreapi',
     'about.apps.AboutConfig',
+    'django_bootstrap5',
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
