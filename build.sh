@@ -8,7 +8,7 @@ pip3 install -r requirements.txt
 #pip3 install upgrade --all
 
 
-
+python manage.py createsu --no-input
 python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic --no-input
