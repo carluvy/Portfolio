@@ -14,15 +14,15 @@ defusedxml==0.7.1
 dj-database-url==1.0.0
 Django==3.2.9
 django-allauth==0.51.0
+django-bootstrap5==22.2
 django-cors-headers==3.13.0
 django-crispy-forms==1.14.0
 django-environ==0.9.0
-# django-pipeline==2.0.8
 django-storages==1.13.1
 djangorestframework==3.14.0
 future==0.16.0
 gunicorn==20.1.0
-# idna==3.4
+idna==3.4
 itypes==1.2.0
 Jinja2==3.1.2
 jmespath==0.10.0
