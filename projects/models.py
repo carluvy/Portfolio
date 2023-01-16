@@ -12,7 +12,7 @@ class Project(models.Model):
     image = models.FilePathField(path=settings.FILE_PATH_FIELD_DIRECTORY)
     github_url = models.URLField(default='githuburl', max_length=200)
     medium_url = models.URLField(default='mediumurl', max_length=200)
-    slug = models.SlugField(max_length=520, )
+    # slug = models.SlugField(max_length=520, )
 
     def __str__(self) -> str:
         return f"{self.title}: {self.description}"
