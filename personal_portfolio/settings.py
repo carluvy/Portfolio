@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     'coreapi',
     'about.apps.AboutConfig',
     'django_bootstrap5',
+    'robots',
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -252,3 +253,4 @@ REST_FRAMEWORK = {
 }
 
 ADMINS = [(os.environ.get("ADMIN_NAME"), os.environ.get("EMAIL_HOST_USER"))]
+ROBOTS_USE_SITEMAP = True

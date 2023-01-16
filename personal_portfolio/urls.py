@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.contrib.auth import views as auth_views
 from rest_framework.documentation import include_docs_urls
 
@@ -24,31 +24,32 @@ from blog import views
 
 urlpatterns = [
 
-    path("admin/", admin.site.urls),
+                  path("admin/", admin.site.urls),
 
-    path('docs/', include_docs_urls(title='Swahili API')),
-    path("words/", include("swahiliApi.urls")),
-    path("", include("about.urls")),
+                  path('docs/', include_docs_urls(title='Swahili API')),
+                  path("words/", include("swahiliApi.urls")),
+                  path("", include("about.urls")),
 
-    path("portfolio/", include("projects.urls")),
-    path("blog/", include("blog.urls")),
-    path("user/", include("users.urls")),
-    path("password_reset/done/",
-         auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
-         name='password_reset_done'),
-    path('reset/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(
-             template_name="registration/password_reset_confirm.html"),
-         name='password_reset_confirm'),
-    path('reset/done/',
-         auth_views.PasswordResetCompleteView.as_view(
-             template_name='registration/password_reset_complete.html'),
-         name='password_reset_complete'),
-    path("accounts/", include("allauth.urls")),
-    # path('social-auth/', include('allauth.socialaccount.providers.google.urls'))
-    # path("search/", views.search_blogs(search_params='data', request=raw_input), name="search_results"),
+                  path("portfolio/", include("projects.urls")),
+                  path("blog/", include("blog.urls")),
+                  path("user/", include("users.urls")),
+                  path("password_reset/done/",
+                       auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
+                       name='password_reset_done'),
+                  path('reset/<uidb64>/<token>/',
+                       auth_views.PasswordResetConfirmView.as_view(
+                           template_name="registration/password_reset_confirm.html"),
+                       name='password_reset_confirm'),
+                  path('reset/done/',
+                       auth_views.PasswordResetCompleteView.as_view(
+                           template_name='registration/password_reset_complete.html'),
+                       name='password_reset_complete'),
+                  path("accounts/", include("allauth.urls")),
+                  re_path(r'^robots\.txt', include('robots.urls')),
+                  # path('social-auth/', include('allauth.socialaccount.providers.google.urls'))
+                  # path("search/", views.search_blogs(search_params='data', request=raw_input), name="search_results"),
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # if settings.DEBUG:
 #     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
