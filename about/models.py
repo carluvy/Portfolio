@@ -8,3 +8,5 @@ class About(models.Model):
 
     def __str__(self) -> str:
         return f"{self.profile_pic}"
+
+

@@ -16,12 +16,17 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, re_path
 from django.contrib.auth import views as auth_views
 from rest_framework.documentation import include_docs_urls
 
-from blog import views
+from personal_portfolio.sitemaps import ProjectSitemap, BlogSitemap
 
+sitemaps = {
+    'projects': ProjectSitemap,
+    'blog': BlogSitemap,
+}
 urlpatterns = [
 
                   path("admin/", admin.site.urls),
@@ -46,6 +51,13 @@ urlpatterns = [
                        name='password_reset_complete'),
                   path("accounts/", include("allauth.urls")),
                   re_path(r'^robots\.txt', include('robots.urls')),
+                  path('sitemap.xml', sitemap,
+                       {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
+                  # new
+                  # {'sitemaps': {'projects': GenericSitemap(projects, priority=0.8)}},
+                  # name='django.contrib.sitemaps.views.sitemap'),
+
                   # path('social-auth/', include('allauth.socialaccount.providers.google.urls'))
                   # path("search/", views.search_blogs(search_params='data', request=raw_input), name="search_results"),
 
