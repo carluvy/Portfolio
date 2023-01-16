@@ -17,7 +17,7 @@ import dj_database_url
 import environ
 import asyncio
 
-from django.conf.global_settings import ALLOWED_HOSTS
+# from django.conf.global_settings import ALLOWED_HOSTS
 from django.contrib.messages import constants as messages
 from django.template.context_processors import static
 
@@ -48,15 +48,15 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="MY_SECRET_KEY")
 # DEBUG = os.environ.get('DJANGO_DEBUG', '0').lower() in ['true', 't', '1']
 
 
-DEBUG = 'RENDER' not in os.environ
-# DEBUG = False
+# DEBUG = 'RENDER' not in os.environ
+DEBUG = False
 #
-# ALLOWED_HOSTS = ['*']
-if not DEBUG:
-    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-
-    if RENDER_EXTERNAL_HOSTNAME:
-        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+ALLOWED_HOSTS = ['*']
+# if not DEBUG:
+#     RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+#
+#     if RENDER_EXTERNAL_HOSTNAME:
+#         ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = ['*']
@@ -159,8 +159,8 @@ DATABASES = {
 #         default='postgresql://postgres:postgres@localhost:5432/personal_portfolio',
 #         conn_max_age=600)
 # }
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -255,6 +255,6 @@ REST_FRAMEWORK = {
 }
 
 ADMINS = [(os.environ.get("ADMIN_NAME"), os.environ.get("EMAIL_HOST_USER"))]
-ROBOTS_USE_SITEMAP = True
-ROBOTS_USE_HOST = False
-ROBOTS_USE_SCHEME_IN_HOST = True
+# ROBOTS_USE_SITEMAP = True
+# ROBOTS_USE_HOST = False
+# ROBOTS_USE_SCHEME_IN_HOST = True

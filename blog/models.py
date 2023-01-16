@@ -16,9 +16,9 @@ class Post(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField('Category', related_name='posts')
 
-    # def get_absolute_url(self):
-    #
-    #     return f'blog/{self.title}'
+    def get_absolute_url(self):
+
+        return f'blog/{self.title}'
 
 
 class Comment(models.Model):
