@@ -24,7 +24,7 @@ from rest_framework.documentation import include_docs_urls
 from personal_portfolio.sitemaps import ProjectSitemap, BlogSitemap
 
 sitemaps = {
-    'projects': ProjectSitemap,
+    'portfolio': ProjectSitemap,
     'blog': BlogSitemap,
 }
 urlpatterns = [

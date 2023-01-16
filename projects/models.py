@@ -16,7 +16,8 @@ class Project(models.Model):
     # slug = models.SlugField(max_length=520, )
 
     def __str__(self) -> str:
-        return f"{self.title}: {self.description}"
+        return reverse('index', args=[str(self.title)])
+        # return f"{self.title}: {self.description}"
 
     def get_absolute_url(self):
         #     # return reverse('index',
