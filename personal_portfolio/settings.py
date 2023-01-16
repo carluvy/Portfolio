@@ -254,3 +254,5 @@ REST_FRAMEWORK = {
 
 ADMINS = [(os.environ.get("ADMIN_NAME"), os.environ.get("EMAIL_HOST_USER"))]
 ROBOTS_USE_SITEMAP = True
+ROBOTS_USE_HOST = False
+# ROBOTS_USE_SCHEME_IN_HOST = True
