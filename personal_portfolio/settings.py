@@ -156,11 +156,12 @@ DATABASES = {
 
 # DATABASES = {
 #     "default": dj_database_url.config(
-#         default='postgresql://postgres:postgres@localhost:5432/personal_portfolio',
+#         default='postgresql://postgres:postgres@127.0.0.1:8000/:5432/personal_portfolio',
 #         conn_max_age=600)
 # }
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+if not DEBUG:
+    db_from_env = dj_database_url.config(conn_max_age=600)
+    DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -215,7 +216,7 @@ STATICFILES_FINDERS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SITE_ID = 2
+SITE_ID = 3
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 

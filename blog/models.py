@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 from django.urls import reverse
 
@@ -19,11 +18,10 @@ class Post(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField('Category', related_name='posts')
 
-    def get_absolute_url(self):
-        return reverse('blog_index', args=[str(self.title)])
-
-        # return f'blog/{self.title}'
-
+    # def get_absolute_url(self):
+    #     return reverse('blog_index', args=[str(self.title)])
+    #
+    #     # return f'blog/{self.title}'
 
 
 class Comment(models.Model):
