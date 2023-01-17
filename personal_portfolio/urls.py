@@ -51,8 +51,8 @@ urlpatterns = [
                        name='password_reset_complete'),
                   path("accounts/", include("allauth.urls")),
                   re_path(r'^robots\.txt', include('robots.urls')),
-                  # path('sitemap.xml', sitemap,
-                  #      {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+                  path('sitemap.xml', sitemap,
+                       {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
                   # new
                   # {'sitemaps': {'projects': GenericSitemap(projects, priority=0.8)}},
